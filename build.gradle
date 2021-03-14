@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.ogc.boardingpeople'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'io.projectreactor:reactor-core'
+    implementation 'ch.qos.logback:logback-classic'
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('com.google.code.gson:gson:2.8.2')
+    compile('org.json:json:20090211')
+    compile('com.squareup.okhttp3:okhttp:3.10.0')
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile('com.h2database:h2:1.4.197')
+    compile('org.apache.commons:commons-lang3:3.1')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework:spring-test')
+    testCompile('com.h2database:h2')
+    testCompile('org.hamcrest:hamcrest-core')
+    testCompile('com.jayway.restassured:rest-assured:2.4.0')
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+}
+
+test {
+    useJUnitPlatform()
+}

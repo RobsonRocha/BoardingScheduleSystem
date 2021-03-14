@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+flyway:
+  enabled: true
+  locations: classpath:db/migrations
+
+spring:
+  application.name: boarding-people
+  datasource:
+    hikari:
+      connectionTestQuery: SELECT 1
+      minIdle: 1
+      maxPoolSize: 10
+      idleTimeout: 60000
+      poolName: db-pool
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password:
+
+logging:
+  llevel:
+    io: error
+    com.m4u: info
+    org.xnio: error
+    org.springframework.web: error
+    org.springframework.util: error
+    org.springframework.context.support: error
+    org.springframework.boot.web.servlet: error
+    org.springframework.jmx.export.annotation: error
+    org.springframework.boot.actuate.endpoint.mvc: error
+    org.springframework.web.reactive.function.client.ExchangeFunctions: TRACE
+    spring.http.log-request-details: true
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
