@@ -3,26 +3,26 @@
 ## Motivação
 
 Projeto criado para prover o serviço (REST) de agendamento de embarque para uma empresa fictícia chamada Oil & Gas Corp., onde os seguintes serviços(API) são oferecidos:
-	Lista de todas as empresas,
-    Cadastro de empresa,
-    Busca de uma empresa pelo ID,
-    Deleção de uma empresa existente,
-    Atualização uma empresa existente,
-    Busca de uma empresa pelo nome,
-    Deleção um empregado existente,
-    Atualização um empregado existente,
-    Cadastro de um empregado,
-    Lista de todos os empregados,
-    Lista de todos os detalhes do empregado,
-    Busca de um empregado pelo ID,
-    Busca de um empregado pelo nome,
-    Cadastro de um agendamento de embarque.
-    Atualização de um agendamento existente,
-    Deleção de um agendamento,
-    Busca de agendamentos entre datas,
-    Busca de todos os agendamentos,
-    Busca de todos os agendamentos por empregado e 
-    Busca de todos os agendamentos por empresa
+	[x] Lista de todas as empresas,
+    [x] Cadastro de empresa,
+    [x] Busca de uma empresa pelo ID,
+    [x] Deleção de uma empresa existente,
+    [x] Atualização uma empresa existente,
+    [x] Busca de uma empresa pelo nome,
+    [x] Deleção um empregado existente,
+    [x] Atualização um empregado existente,
+    [x] Cadastro de um empregado,
+    [x] Lista de todos os empregados,
+    [x] Lista de todos os detalhes do empregado,
+    [x] Busca de um empregado pelo ID,
+    [x] Busca de um empregado pelo nome,
+    [x] Cadastro de um agendamento de embarque.
+    [x] Atualização de um agendamento existente,
+    [x] Deleção de um agendamento,
+    [x] Busca de agendamentos entre datas,
+    [x] Busca de todos os agendamentos,
+    [x] Busca de todos os agendamentos por empregado e 
+    [x] Busca de todos os agendamentos por empresa
 	
 Os detalhes são encontrados no documento Swagger na url `http://localhost:8080/swagger-ui.html`.
  
