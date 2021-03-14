@@ -7,18 +7,18 @@ Projeto criado para prover o serviço (REST) de agendamento de embarque para uma
     * Lista de todas as empresas,
     * Cadastro de empresa,
     * Busca de uma empresa pelo ID,
-    * Deleção de uma empresa e*istente,
-    * Atualização uma empresa e*istente,
+    * Deleção de uma empresa existente,
+    * Atualização uma empresa existente,
     * Busca de uma empresa pelo nome,
-    * Deleção um empregado e*istente,
-    * Atualização um empregado e*istente,
+    * Deleção de um empregado existente,
+    * Atualização um empregado existente,
     * Cadastro de um empregado,
     * Lista de todos os empregados,
     * Lista de todos os detalhes do empregado,
     * Busca de um empregado pelo ID,
     * Busca de um empregado pelo nome,
     * Cadastro de um agendamento de embarque.
-    * Atualização de um agendamento e*istente,
+    * Atualização de um agendamento existente,
     * Deleção de um agendamento,
     * Busca de agendamentos entre datas,
     * Busca de todos os agendamentos,
@@ -29,12 +29,12 @@ Os detalhes são encontrados no documento Swagger na url `http://localhost:8080/
  
 ## Linguagem
 
-A linguagem utilizada é Java, com au*ílio do framework [Spring boot](https://projects.spring.io/spring-boot/) para geração do container.
+A linguagem utilizada é Java, com auxílio do framework [Spring boot](https://projects.spring.io/spring-boot/) para geração do container.
 
 ## Compilação
 
 Para facilitar a importação de bibliotecas e a compilação dos arquivos em um único pacote, foi utilizado [Gradle](https://gradle.org/).
-Para compilar gerando o pacote basta e*ecutar o comando abai*o na linha de comando.
+Para compilar gerando o pacote basta executar o comando abaixo na linha de comando.
 
 ```./gradlew build```
 
@@ -42,20 +42,25 @@ Na pasta build/lib é gerado o arquivo `BoardingScheduleSystem-1.0.0-SNAPSHOT.ja
 
 ## Banco de dados
 
-Para facilitar a demostração do funcionamento do registro, o banco de dados usado foi o [H2](http://www.h2database.com/html/main.html).
+Para facilitar a demonstração do funcionamento do registro, o banco de dados usado foi o [H2](http://www.h2database.com/html/main.html).
+Foram criadas 3 tabelas:
+
+```enterprise 1:N -> employee 0:N -> board_schedule```
+
+Os detalhes estão no arquivo V1__Init.sql na pasta resources/db/migration.
 
 
 ## Testes
 
 Para os testes foram utilizadas as bibliotecas [JUnit](http://junit.org/).
-Para e*ecutar os testes basta escrever na linha de comando abai*o.
+Para executar os testes basta escrever na linha de comando abaixo.
 
  ```gradle test```
 
 
-## E*ecução
+## Excecução
 
-Para e*ecutar o serviço, foi criado um arquivo shell chamado runApplication.sh que está na raiz do projeto. Ele já cria a imagem localmente e roda o projeto,
+Para executar o serviço, foi criado um arquivo shell chamado runApplication.sh que está na raiz do projeto. Ele já cria a imagem localmente e roda o projeto,
 rodando todos os testes para verificação. Basta rodar na linha de comando o seguinte:
 
 ```./runApplication.sh```
