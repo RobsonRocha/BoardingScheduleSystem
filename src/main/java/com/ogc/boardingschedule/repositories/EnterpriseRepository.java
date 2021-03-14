@@ -41,12 +41,10 @@ public class EnterpriseRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final BeanPropertyRowMapper<Enterprise> rowMapper = BeanPropertyRowMapper.newInstance(Enterprise.class);
-    private final BeanPropertyRowMapper<Long> rowLongMapper = BeanPropertyRowMapper.newInstance(Long.class);
 
     public EnterpriseRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    private final BeanPropertyRowMapper<Integer> rowIntegerMapper = BeanPropertyRowMapper.newInstance(Integer.class);
 
     public boolean alreadyExists(String name) {
 

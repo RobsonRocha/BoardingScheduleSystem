@@ -22,7 +22,7 @@ public class EnterpriseService {
     public Mono<Void> insertCompany(String name) {
         if (enterpriseRepository.alreadyExists(name)) {
             log.info("Empresa {} já existe.", name);
-            throw new EnterpriseExistsException("Empresa "+name+" já existe.");
+            return Mono.error(new EnterpriseExistsException("Empresa "+name+" já existe."));
         }
         log.info("Inserindo empresa {}.", name);
         return enterpriseRepository.insertNewCompany(name);

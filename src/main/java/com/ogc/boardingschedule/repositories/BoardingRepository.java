@@ -22,11 +22,6 @@ import java.util.List;
 @Repository
 @Slf4j
 public class BoardingRepository {
-    private static final String QUERY_GET_EMPLOYEE_DETAIL_BY_NAME = "SELECT emp.ID, emp.NAME, emp.ROLE, emp.ENTERPRISE_ID, e.name as enterpriseName " +
-            " FROM employee emp inner join enterprise e " +
-            "     on emp.enterprise_id = e.id " +
-            "WHERE trim(upper(emp.name))=trim(upper(:name))";
-
     private static final String QUERY_GET_BOARDING_SCHEDULE_BY_ID = "SELECT bs.id, bs.employee_id as employeeId, " +
             "bs.init_date as initDate, bs.end_date as endDate " +
             " FROM board_schedule bs " +
@@ -80,10 +75,6 @@ public class BoardingRepository {
             "   inner join enterprise e on emp.enterprise_id = e.id " +
             "WHERE :initDate between bs.init_date and bs.end_date " +
             "AND emp.id = :employeeId";
-
-    private static final String QUERY_GET_EMPLOYEES_DETAIL = "SELECT emp.ID, emp.NAME, emp.ROLE, emp.ENTERPRISE_ID, e.name as enterpriseName " +
-            " FROM employee emp inner join enterprise e " +
-            "     on emp.enterprise_id = e.id" ;
 
     private static final String QUERY_INSERT_NEW_BOARDING = "INSERT INTO board_schedule (employee_id, init_date, end_date)  " +
             "  VALUES (:employeeId, :initDate, :endDate)";
@@ -273,86 +264,4 @@ public class BoardingRepository {
         }
     }
 
-    /*
-    public Flux<EmployeeDetail> getEmployeesDetail() {
-        try {
-            List<EmployeeDetail> employees =  jdbcTemplate.query(QUERY_GET_EMPLOYEES_DETAIL, rowDetailMapper);
-            return Flux.defer(() -> Flux.fromIterable(
-                    employees));
-        } catch (EmptyResultDataAccessException e) {
-            log.info("Não há nenhuma empregado cadastrado");
-            return null;
-        } catch (Exception e) {
-            log.error("Erro ao acessar o banco :: Message - {}", e.getMessage());
-            throw new EmployeeException(e.getMessage());
-        }
-    }
-
-    public Mono<EmployeeDetail> getEmployeeDetailByName(String name) {
-        try {
-
-            SqlParameterSource param = new MapSqlParameterSource("name", name);
-
-            EmployeeDetail employee = jdbcTemplate.queryForObject(QUERY_GET_EMPLOYEE_DETAIL_BY_NAME, param, rowDetailMapper);
-            return Mono.just(employee);
-
-        } catch (EmptyResultDataAccessException e) {
-            log.info("Não há nenhuma empregado cadastrado");
-            return null;
-        } catch (Exception e) {
-            log.error("Erro ao acessar o banco :: Message - {}", e.getMessage());
-            throw new EmployeeException(e.getMessage());
-        }
-    }
-
-    public Mono<EmployeeDetail> getEmployeeDetailById(Long id) {
-        try {
-
-            SqlParameterSource param = new MapSqlParameterSource("id", id);
-
-            EmployeeDetail employee = jdbcTemplate.queryForObject(QUERY_GET_EMPLOYEE_DETAIL_BY_ID, param, rowDetailMapper);
-            return Mono.just(employee);
-
-        } catch (EmptyResultDataAccessException e) {
-            log.info("Empregdo {} não existe", id);
-            throw new EmployeeNotExistsException("Empregado "+id+" não existe.");
-        } catch (Exception e) {
-            log.error("Erro ao acessar o banco :: Message - {}", e.getMessage());
-            throw new EmployeeException(e.getMessage());
-        }
-    }
-
-    public void deleteEmployeeById(Long id) {
-        try {
-            Mono<EmployeeDetail> employee = getEmployeeDetailById(id);
-            SqlParameterSource param = new MapSqlParameterSource("id", id);
-            jdbcTemplate.update(QUERY_DELETE_EMPLOYEE, param);
-            log.info("Empregado, cujo id é {}, foi apagado com sucesso.", id);
-        } catch (EmployeeNotExistsException e){
-            log.info("Empresa de id = {} não existe.", id);
-        } catch (Exception e) {
-            log.error("Erro ao apagar a empregado id = {} :: Messagem - {}", id, e.getMessage());
-            throw new EmployeeException("Erro ao apagar empregado id = "+id);
-        }
-    }
-
-    public void updateEmployee(Long id, String name, String role, Long enterpriseId) {
-        try {
-            Mono<EmployeeDetail> employee = getEmployeeDetailById(id);
-            EmployeeDetail oldEmployee = employee.block();
-            Employee newEmployee = new Employee(id, name, role, enterpriseId);
-            BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(newEmployee);
-            jdbcTemplate.update(QUERY_UPDATE_EMPLOYEE, paramSource);
-            log.info("Empregado, cujo id é {}, foi atulizado de {} para {} " +
-                    "de {} para {} " +
-                    "de {} para {} com sucesso.", id, oldEmployee.getName(), name, oldEmployee.getRole(), role,
-                    oldEmployee.getEnterpriseId(), enterpriseId);
-        } catch (EmployeeNotExistsException e){
-            log.error("Empregado de id = {} não existe.", id);
-            throw new EmployeeNotExistsException("Empregado de id = "+id+" e nome = "+name+" não existe.");
-        } catch (Exception e) {
-            log.error("Erro ao atualizar a empregado id = {} :: Messagem - {}", id, e.getMessage());
-            throw new EmployeeException("Erro ao atualizar empregado id = "+id);
-        }
-    }*/
 }
