@@ -4,6 +4,7 @@ import com.ogc.boardingschedule.domain.EmployeeDetail;
 import com.ogc.boardingschedule.exceptions.EmployeeInDayOffException;
 import com.ogc.boardingschedule.exceptions.EmployeeNotExistsException;
 import com.ogc.boardingschedule.exceptions.EmployeeOnBoardException;
+import com.ogc.boardingschedule.exceptions.WrongInitDateException;
 import com.ogc.boardingschedule.service.BoardingService;
 import com.ogc.boardingschedule.service.EmployeeService;
 import com.ogc.boardingschedule.service.EnterpriseService;
@@ -52,6 +53,22 @@ public class BoardingScheduleServiceTest {
     }
 
     @Test
+    void insertBoardingWrongDataTest(){
+        enterpriseService.insertCompany("Teste");
+        employeeService.insertEmployee("Teste", "Funcionario", 1L);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String initDate = LocalDate.now().toString();
+        LocalDate startDate = LocalDate.parse(initDate, formatter);
+
+        StepVerifier
+                .create(boardingService.insertNewBoarding(2L, startDate.plusDays(-1)))
+                .expectErrorMatches(throwable -> throwable instanceof WrongInitDateException)
+                .verify();
+
+    }
+
+    @Test
     void insertBoardingWrongEmployeeTest(){
         enterpriseService.insertCompany("Teste");
         employeeService.insertEmployee("Teste", "Funcionario", 1L);
@@ -72,7 +89,7 @@ public class BoardingScheduleServiceTest {
         enterpriseService.insertCompany("Teste")
         .doOnSuccess(u -> employeeService.insertEmployee("Teste", "Funcionario", 1L)
                 .doOnSuccess(e -> {
-                    employeeService.getEmployeeDetailByName("Teste")
+                    employeeService.getEmployeeDetailById(1L)
                             .doOnSuccess( emp -> {
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                 String initDate = LocalDate.now().toString();
@@ -92,7 +109,7 @@ public class BoardingScheduleServiceTest {
         enterpriseService.insertCompany("Teste")
                 .doOnSuccess(u -> employeeService.insertEmployee("Teste", "Funcionario", 1L)
                         .doOnSuccess(e -> {
-                            employeeService.getEmployeeDetailByName("Teste")
+                            employeeService.getEmployeeDetailById(1L)
                                     .doOnSuccess( emp -> {
                                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                         String initDate = LocalDate.now().toString();

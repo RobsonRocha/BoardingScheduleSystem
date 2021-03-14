@@ -5,6 +5,7 @@ import com.ogc.boardingschedule.domain.EmployeeDetail;
 import com.ogc.boardingschedule.domain.Enterprise;
 import com.ogc.boardingschedule.service.EmployeeService;
 import com.ogc.boardingschedule.service.EnterpriseService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -28,6 +29,7 @@ public class OGCFormController {
         this.employeeService = employeeService;
     }
 
+    @ApiOperation(value = "Cadastra uma empresa")
     @ResponseStatus(CREATED)
     @PostMapping("/company/{enterprisename}")
     public Mono<Void> setEnterprise( @PathVariable String enterprisename) {
@@ -35,6 +37,7 @@ public class OGCFormController {
         return enterpriseService.insertCompany(enterprisename);
     }
 
+    @ApiOperation(value = "Lista todas as empresas")
     @ResponseStatus(OK)
     @GetMapping("/companies")
     public Flux<Enterprise> getCompanies() {
@@ -43,6 +46,7 @@ public class OGCFormController {
 
     }
 
+    @ApiOperation(value = "Busca uma empresa pelo nome")
     @ResponseStatus(OK)
     @GetMapping("/company/name/{name}")
     public Mono<Enterprise> getCompanyByName(@PathVariable String name) {
@@ -51,6 +55,7 @@ public class OGCFormController {
 
     }
 
+    @ApiOperation(value = "Busca uma empresa pelo ID")
     @ResponseStatus(OK)
     @GetMapping("/company/id/{id}")
     public Mono<Enterprise> getCompanyById(@PathVariable Long id) {
@@ -59,6 +64,7 @@ public class OGCFormController {
 
     }
 
+    @ApiOperation(value = "Apaga uma empresa existente")
     @ResponseStatus(OK)
     @DeleteMapping("/company/id/{id}")
     public Mono<Void> deleteCompanyById(@PathVariable Long id) {
@@ -66,6 +72,7 @@ public class OGCFormController {
         return enterpriseService.deleteCompanyById(id);
     }
 
+    @ApiOperation(value = "Atualiza uma empresa existente")
     @ResponseStatus(OK)
     @PutMapping("/company/id/{id}/name/{name}")
     public Mono<Void> deleteCompanyById(@PathVariable Long id, @PathVariable String name) {
@@ -73,6 +80,7 @@ public class OGCFormController {
         return enterpriseService.updateCompany(id,name);
     }
 
+    @ApiOperation(value = "Cadastra um empregado")
     @ResponseStatus(CREATED)
     @PostMapping("/employee/name/{name}/role/{role}/enterpriseId/{enterpriseId}")
     public Mono<Void> setEmployee( @PathVariable String name, @PathVariable String role, @PathVariable Long enterpriseId) {
@@ -80,6 +88,7 @@ public class OGCFormController {
         return employeeService.insertEmployee(name, role, enterpriseId);
     }
 
+    @ApiOperation(value = "Lista todos os empregados")
     @ResponseStatus(OK)
     @GetMapping("/employees")
     public Flux<Employee> getEmployees() {
@@ -88,6 +97,7 @@ public class OGCFormController {
 
     }
 
+    @ApiOperation(value = "Lista todos os detalhes do empregado")
     @ResponseStatus(OK)
     @GetMapping("/employeesdetail")
     public Flux<EmployeeDetail> getEmployeesDetail(){
@@ -95,13 +105,15 @@ public class OGCFormController {
         return employeeService.getEmployeesDetail();
     }
 
+    @ApiOperation(value = "Busca o empregado pelo nome")
     @ResponseStatus(OK)
     @GetMapping("/employeesdetail/name/{name}")
-    public Mono<EmployeeDetail> getEmployeeDetailByName(@PathVariable String name){
+    public Flux<EmployeeDetail> getEmployeeDetailByName(@PathVariable String name){
         log.info("Buscando o empregado com nome {}.", name);
         return employeeService.getEmployeeDetailByName(name);
     }
 
+    @ApiOperation(value = "Busca o empregado pelo ID")
     @ResponseStatus(OK)
     @GetMapping("/employeesdetail/id/{id}")
     public Mono<EmployeeDetail> getEmployeeDetailById(@PathVariable Long id){
@@ -109,6 +121,7 @@ public class OGCFormController {
         return employeeService.getEmployeeDetailById(id);
     }
 
+    @ApiOperation(value = "Apaga um empregado existente")
     @ResponseStatus(OK)
     @DeleteMapping("/employee/id/{id}")
     public Mono<Void> deleteEmployeeById( @PathVariable Long id){
@@ -116,6 +129,7 @@ public class OGCFormController {
         return employeeService.deleteEmployeeById(id);
     }
 
+    @ApiOperation(value = "Atualiza um empregado existente")
     @ResponseStatus(OK)
     @PutMapping("/employee/id/{id}/name/{name}/role/{role}/enterpriseId/{enterpriseId}")
     public Mono<Void> updateCompany(@PathVariable Long id, @PathVariable String name, @PathVariable String role, @PathVariable Long enterpriseId){

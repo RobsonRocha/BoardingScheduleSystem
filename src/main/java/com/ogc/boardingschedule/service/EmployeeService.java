@@ -53,7 +53,7 @@ public class EmployeeService {
         return employeeRepository.getEmployeesDetail();
     }
 
-    public Mono<EmployeeDetail> getEmployeeDetailByName(String name){
+    public Flux<EmployeeDetail> getEmployeeDetailByName(String name){
         log.info("Buscando o empregado com nome {}.", name);
         return employeeRepository.getEmployeeDetailByName(name);
     }

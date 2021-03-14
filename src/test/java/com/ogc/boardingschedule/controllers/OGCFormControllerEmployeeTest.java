@@ -62,33 +62,10 @@ public class OGCFormControllerEmployeeTest {
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
 
-        EmployeeDetail employeeDetail =
-                this.restTemplate.getForObject(getEmployee, EmployeeDetail.class);
+        EmployeeDetail []employeeDetail =
+                this.restTemplate.getForObject(getEmployee, EmployeeDetail[].class);
 
-        assertThat(employeeDetail.getName(), equalTo("Teste"));
-
-    }
-
-    @Test
-    void getEmployeeByWrongName() {
-        String createCompany = "http://localhost:" + this.port + "/v1/ogc/company/Teste";
-        String createEmployee = "http://localhost:" + this.port + "v1/ogc/employee/name/Teste/role/Funcionario/enterpriseId/1";
-        String getEmployee = "http://localhost:" + this.port + "/v1/ogc/employeesdetail/name/Teste1";
-
-        ResponseEntity<String> response =
-                this.restTemplate.postForEntity(createCompany, null, String.class);
-
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
-
-        response =
-                this.restTemplate.postForEntity(createEmployee, null, String.class);
-
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.CREATED));
-
-        EmployeeDetail employeeDetail =
-                this.restTemplate.getForObject(getEmployee, EmployeeDetail.class);
-
-        assertThat(employeeDetail, equalTo(null));
+        assertThat(employeeDetail[0].getName(), equalTo("Teste"));
 
     }
 

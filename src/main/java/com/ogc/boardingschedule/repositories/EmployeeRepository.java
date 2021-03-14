@@ -25,7 +25,7 @@ public class EmployeeRepository {
     private static final String QUERY_GET_EMPLOYEE_DETAIL_BY_NAME = "SELECT emp.ID, emp.NAME, emp.ROLE, emp.ENTERPRISE_ID, e.name as enterpriseName " +
             " FROM employee emp inner join enterprise e " +
             "     on emp.enterprise_id = e.id " +
-            "WHERE trim(upper(emp.name))=trim(upper(:name))";
+            "WHERE trim(upper(emp.name)) like '%'|| trim(upper(:name)) || '%'";
 
     private static final String QUERY_GET_EMPLOYEE_DETAIL_BY_ID = "SELECT emp.ID, emp.NAME, emp.ROLE, emp.ENTERPRISE_ID, e.name as enterpriseName " +
             " FROM employee emp inner join enterprise e " +
@@ -105,20 +105,21 @@ public class EmployeeRepository {
         }
     }
 
-    public Mono<EmployeeDetail> getEmployeeDetailByName(String name) {
+    public Flux<EmployeeDetail> getEmployeeDetailByName(String name) {
         try {
 
             SqlParameterSource param = new MapSqlParameterSource("name", name);
 
-            EmployeeDetail employee = jdbcTemplate.queryForObject(QUERY_GET_EMPLOYEE_DETAIL_BY_NAME, param, rowDetailMapper);
-            return Mono.just(employee);
+            List<EmployeeDetail> employees =  jdbcTemplate.query(QUERY_GET_EMPLOYEE_DETAIL_BY_NAME, param, rowDetailMapper);
+            return Flux.defer(() -> Flux.fromIterable(
+                    employees));
 
         } catch (EmptyResultDataAccessException e) {
             log.info("Não há nenhuma empregado cadastrado");
-            return Mono.empty();
+            return Flux.empty();
         } catch (Exception e) {
             log.error("Erro ao acessar o banco :: Message - {}", e.getMessage());
-            return Mono.error(new EmployeeException(e.getMessage()));
+            return Flux.error(new EmployeeException(e.getMessage()));
         }
     }
 
