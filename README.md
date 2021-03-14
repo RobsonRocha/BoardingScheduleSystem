@@ -44,7 +44,7 @@ Na pasta build/lib é gerado o arquivo `BoardingScheduleSystem-1.0.0-SNAPSHOT.ja
 Para facilitar a demostração do funcionamento do registro, o banco de dados usado foi o [H2](http://www.h2database.com/html/main.html).
 
 
-##Testes
+## Testes
 
 Para os testes foram utilizadas as bibliotecas [JUnit](http://junit.org/).
 Para executar os testes basta escrever na linha de comando abaixo.
