@@ -3,7 +3,8 @@
 ## Motivação
 
 Projeto criado para prover o serviço (REST) de agendamento de embarque para uma empresa fictícia chamada Oil & Gas Corp., onde os seguintes serviços(API) são oferecidos:
-	* Lista de todas as empresas,
+    
+    * Lista de todas as empresas,
     * Cadastro de empresa,
     * Busca de uma empresa pelo ID,
     * Deleção de uma empresa e*istente,
